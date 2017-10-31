@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "904993058662",
+    "firebase_url": "https://mp3demo-25887.firebaseio.com",
+    "project_id": "mp3demo-25887",
+    "storage_bucket": "mp3demo-25887.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904993058662:android:f515085f01f20f86",
+        "android_client_info": {
+          "package_name": "com.example.admin.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904993058662-f7fjl211jlup4qo4h0kv24po6cr12md6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.myapplication",
+            "certificate_hash": "19d2cfd9ec11eac05dc9dfc9f9e7445ce92fe556"
+          }
+        },
+        {
+          "client_id": "904993058662-1dongtlg7j5k8nd52fh2dh9ipv1pcil3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl-Ac9kRf1Yp-zyABvOfpWRriig6yRaks"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "904993058662-1dongtlg7j5k8nd52fh2dh9ipv1pcil3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
