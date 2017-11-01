@@ -2,23 +2,24 @@ package com.example.admin.myapplication.activity.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.admin.myapplication.R;
+import com.example.admin.myapplication.activity.model.Answer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,6 @@ import com.google.firebase.storage.UploadTask;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -57,6 +57,10 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
     private int duration;
     private int seekStart;
     private int seekStop;
+    private String answerA;
+    private String answerB;
+    private String answerC;
+    private String answerD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +92,12 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
         seekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
             @Override
             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                int min = Integer.parseInt(String.valueOf(minValue));
-                int max = Integer.parseInt(String.valueOf(maxValue));
-//                seekStart = 100 * min / duration;
-//                seekStop = 100 * max / duration;
-                Log.d(TAG, "onRangeSeekBarValuesChanged: " + min + "\n" + max);
+                double min = Integer.parseInt(String.valueOf(minValue));
+                double percent = ((100.00 - min) / 100) * duration;
+                seekStart = (int) (percent);
+                player.seekTo(seekStart);
+                seekStop = seekStart + 30;
+                Log.d(TAG, "onRangeSeekBarValuesChanged: " + percent);
 //                player.seekTo(seekStart);
             }
         });
@@ -101,25 +106,21 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
     private void playMusic() {
 
         try {
-            File file = new File(path);
-            player.setDataSource(this, Uri.fromFile(file));
-            Log.d(TAG, "playMusic: " + audioFileUri);
-            duration = player.getDuration();
+            player.setDataSource(this, audioFileUri);
             player.prepare();
             player.start();
+            duration = player.getDuration();
+            Log.d(TAG, "playMusic: " + duration);
         } catch (IllegalArgumentException e) {
-            Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
         } catch (SecurityException e) {
-
-            Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
         } catch (IllegalStateException e) {
-
-            Toast.makeText(getApplicationContext(), "You might not set the URI correctly!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
         } catch (IOException e) {
-
             e.printStackTrace();
 
         }
@@ -164,6 +165,9 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Uri urlDownload = taskSnapshot.getDownloadUrl();
+                            Answer answer = new Answer(answerA, answerB, answerC, answerD, numberCorrect, String.valueOf(urlDownload), seekStart, seekStop);
+                            String child = mRoot.child("Music").push().getKey();
+                            mRoot.child("Music").child(child).setValue(answer);
                             Log.d(TAG, "onSuccess: " + urlDownload);
 
                             Toast.makeText(AddQuestionActivity.this, "Success", Toast.LENGTH_SHORT).show();
@@ -201,7 +205,7 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
                 chooseFile();
                 break;
             case R.id.rl_upload:
-                uploadFile();
+                checkEmpty();
                 break;
             case R.id.img_play:
                 if (!player.isPlaying()) {
@@ -223,16 +227,48 @@ public class AddQuestionActivity extends AppCompatActivity implements View.OnCli
             if ((data != null) && (data.getData() != null)) {
                 audioFileUri = data.getData();
                 path = audioFileUri.getPath();
-                Log.d(TAG, "onActivityResult: " + path);
+
                 String filename1 = audioFileUri.getLastPathSegment();
                 nameFile = filename1.substring(filename1.lastIndexOf("/") + 1);
                 tvFileName.setText(nameFile);
                 seekBar.setVisibility(View.VISIBLE);
                 imgPause.setVisibility(View.VISIBLE);
                 imgPlay.setVisibility(View.VISIBLE);
+                AlertDialog dialog = new AlertDialog.Builder(this)
+                        .setMessage(getString(R.string.guide))
+                        .setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
 //                playMusic();
                 // Now you can use that Uri to get the file path, or upload it, ...
             }
         }
+    }
+
+    private void checkEmpty() {
+        answerA = edtA.getText().toString();
+        answerB = edtB.getText().toString();
+        answerC = edtC.getText().toString();
+        answerD = edtD.getText().toString();
+        if (answerA.equals("") || answerB.equals("") || answerC.equals("") || answerD.equals("") || audioFileUri == null) {
+            Toast.makeText(this, getString(R.string.not_null), Toast.LENGTH_SHORT).show();
+        } else {
+            uploadFile();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        player.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        player.stop();
     }
 }

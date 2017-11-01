@@ -1,19 +1,26 @@
 package com.example.admin.myapplication.activity.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.myapplication.R;
+import com.example.admin.myapplication.activity.dialog.FinishGameDialog;
 import com.example.admin.myapplication.activity.model.Answer;
+import com.example.admin.myapplication.activity.model.PreviewResult;
+import com.example.admin.myapplication.activity.util.CoutTime;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +52,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private StorageReference mStorageRef;
     private DatabaseReference myRef;
     private List<Answer> list = new ArrayList<>();
+    private CoutTime coutTime;
+    private int numberQuestion = 0;
+    private List<PreviewResult> listResult = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +77,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         btnAnswerD.setOnClickListener(this);
         AnimationDrawable animation = (AnimationDrawable) imgSpeaker.getBackground();
         animation.start();
-        runMedia("");
         setUpQuestion();
     }
 
@@ -142,13 +151,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void downloadFile() {
-        try {
-            File file = File.createTempFile("audio", "mp3");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void setUpQuestion() {
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -166,11 +168,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     list.add(answer);
 
                 }
-                runMedia(list.get(1).getUrl_play());
-                btnAnswerA.setText("A. " + list.get(1).getAnswerA());
-                btnAnswerB.setText("B. " + list.get(1).getAnswerB());
-                btnAnswerC.setText("C. " + list.get(1).getAnswerC());
-                btnAnswerD.setText("D. " + list.get(1).getAnswerD());
+                setTime();
+                enableButton();
+                runMedia(list.get(numberQuestion).getUrl_play());
+                btnAnswerA.setText("A. " + list.get(numberQuestion).getAnswerA());
+                btnAnswerB.setText("B. " + list.get(numberQuestion).getAnswerB());
+                btnAnswerC.setText("C. " + list.get(numberQuestion).getAnswerC());
+                btnAnswerD.setText("D. " + list.get(numberQuestion).getAnswerD());
                 dialog.dismiss();
 
             }
@@ -185,10 +189,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void checkAnswer(int myAnswer) {
+        disableButton();
+        coutTime.cancel();
         if (myAnswer == list.get(1).getCorrect()) {
             Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            PreviewResult result = new PreviewResult(numberQuestion, true);
+            listResult.add(result);
         } else {
             Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show();
+            PreviewResult result = new PreviewResult(numberQuestion, false);
+            listResult.add(result);
+        }
+        if (numberQuestion == 1) {
+            player.stop();
+            FinishGameDialog dialog = new FinishGameDialog(GameActivity.this, listResult);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.setCancelable(false);
+            dialog.show();
+        } else {
+            numberQuestion++;
         }
     }
 
@@ -196,5 +216,36 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         player.stop();
+    }
+
+    private void setTime() {
+        coutTime = new CoutTime(10000, 1000, new CoutTime.checkFinish() {
+            @Override
+            public void onFinish() {
+                AlertDialog dialog = new AlertDialog.Builder(GameActivity.this)
+                        .setMessage("Hết giờ")
+                        .setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).show();
+            }
+        });
+        coutTime.start();
+    }
+
+    private void disableButton() {
+        btnAnswerA.setEnabled(false);
+        btnAnswerB.setEnabled(false);
+        btnAnswerC.setEnabled(false);
+        btnAnswerD.setEnabled(false);
+    }
+
+    private void enableButton() {
+        btnAnswerA.setEnabled(true);
+        btnAnswerB.setEnabled(true);
+        btnAnswerC.setEnabled(true);
+        btnAnswerD.setEnabled(true);
     }
 }

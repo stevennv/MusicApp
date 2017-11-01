@@ -7,4 +7,7 @@
     <color name="white">#ffffff</color>
     <color name="color_answer">#a0af52</color>
     <color name="red">#ff1223</color>
+    <color name="orange">#d67e36</color>
+    <color name="blue">#2f4ff2</color>
+    <color name="transparent">#ffffffff</color>
 </resources>
