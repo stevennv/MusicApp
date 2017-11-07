@@ -2,28 +2,94 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/padding_20"
-
+    android:background="@drawable/bg_splash"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/padding_20">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn_white"
         android:gravity="center"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_20">
+
+            <ImageView
+                android:id="@+id/img_disk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_disk_with_ani" />
+
+            <ImageView
+                android:id="@+id/img_music_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:background="@drawable/ic_music_with_ani1" />
+
+            <ImageView
+                android:id="@+id/img_music_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:background="@drawable/ic_music_with_ani2" />
+
+            <ImageView
+                android:id="@+id/img_music_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:background="@drawable/ic_music_with_ani3" />
+
+            <ImageView
+                android:id="@+id/img_music_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:background="@drawable/ic_music_with_ani4" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_15" />
+            android:layout_marginBottom="@dimen/padding_15"
+            android:textColor="@color/black" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_preview_result"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_15" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/btn_ok"
+                android:layout_marginBottom="@dimen/padding_20"
+                android:background="@drawable/bg_btn_transparent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_preview_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_15" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_ok"
+                android:padding="@dimen/padding_20"
+                android:text="@string/ok"
+                android:textColor="@color/white" />
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.activity.GameActivity"
+            android:name=".activity.GameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddQuestionActivity"
             android:screenOrientation="portrait" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
-            android:name=".activity.activity.AddQuestionActivity"
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.InviteFriendActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.SearchDialog" />
+        <activity android:name=".activity.MusicActivity" />
+        <activity android:name=".dialog.NotificationDialog" />
+        <activity android:name=".activity.ChatActivity"/>
     </application>
 
 </manifest>

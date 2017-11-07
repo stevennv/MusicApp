@@ -10,4 +10,6 @@
     <color name="orange">#d67e36</color>
     <color name="blue">#2f4ff2</color>
     <color name="transparent">#ffffffff</color>
+    <color name="green">#1abc0e</color>
+    <color name="grey">#d3d3d3</color>
 </resources>

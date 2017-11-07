@@ -14,14 +14,37 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/padding_20">
+        android:layout_marginRight="@dimen/padding_20"
+        android:gravity="center_vertical">
 
         <TextView
+            android:gravity="center"
             android:id="@+id/tv_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/rl_result"
             android:textColor="@color/black"
             android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/rl_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/img_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_true" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/img_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_false" />
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

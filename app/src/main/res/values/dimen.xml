@@ -2,6 +2,9 @@
 <resources>
     <dimen name="padding_20">20dp</dimen>
     <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="padding_3_">-3dp</dimen>
     <dimen name="padding_15">15dp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_16">16sp</dimen>

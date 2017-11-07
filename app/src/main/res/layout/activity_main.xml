@@ -5,57 +5,163 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/padding_20"
     android:orientation="vertical"
-    tools:context="com.example.admin.myapplication.activity.activity.MainActivity">
+    tools:context="com.example.admin.myapplication.activity.MainActivity">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
+        android:id="@+id/ll_user_info"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
 
         <TextView
-            android:id="@+id/tv_play"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/play"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_20"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18"
-            android:textStyle="bold" />
+            android:textSize="@dimen/text_size_18" />
 
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="@dimen/padding_20">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_add_question"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/add_question"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-    </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_login"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="@dimen/padding_20">
+                <TextView
+                    android:id="@+id/tv_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/login"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_fb_examle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/add_question"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18"
-            android:textStyle="bold" />
+            </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_noti"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
 
+                <TextView
+                    android:id="@+id/tv_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/notification"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
 
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
+
+                <TextView
+                    android:id="@+id/tv_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/play"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
+
+                <TextView
+                    android:id="@+id/tv_add_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/add_question"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_invite"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
+
+                <TextView
+                    android:id="@+id/tv_invite_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/invite_play"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_fb_examle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/add_question"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/padding_20">
+
+                <TextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/logout"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

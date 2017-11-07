@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="facebook_app_id">134083423913831</string>
+    <string name="fb_login_protocol_scheme">fb134083423913831</string>
     <string name="play">Chơi</string>
+    <string name="notification">Thông báo</string>
     <string name="ok">OK</string>
     <string name="add_question">Thêm câu hỏi</string>
+    <string name="invite_friend"> đã mời bạn chơi</string>
+    <string name="invite_play">Mời bạn</string>
+    <string name="invite">Mời</string>
+    <string name="pls_wait">Vui lòng đợi ...</string>
+    <string name="has_error">Sảy ra lỗi</string>
+    <string name="login">Đăng nhập Fb</string>
+    <string name="logout">Đăng xuất</string>
     <string name="enter_correct_answer">Nhập câu trả lời đúng</string>
     <string name="title_activity_maps">Map</string>
     <string name="pls_choose_one_file_mp3">Hãy chọn một file nhạc đuôi .mp3</string>
@@ -12,4 +22,5 @@
     <string name="preview_result">Xem kết quả</string>
     <string name="guide">Hãy nghe thử và chọn thời điểm bắt đầu</string>
     <string name="end_game">Bạn đã hoàn thành phần chơi của mình.</string>
+    <string name="invite_to_play">Hãy chọn 1 người bạn để thách đấu</string>
 </resources>

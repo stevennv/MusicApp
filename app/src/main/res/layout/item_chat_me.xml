@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_messsage_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_20"
+        android:background="@drawable/bg_btn_white"
+        android:padding="@dimen/padding_15"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_18"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_chat_rival"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/tv_messsage_rival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:background="@drawable/bg_btn_white"
+            android:padding="@dimen/padding_15"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_18"
+            android:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>
